@@ -29,5 +29,4 @@ use Mix.Config
 #
 #     import_config "#{Mix.env}.exs"
 config :peep,
-  ember_app: "ui",
-  ember_path: "./node_modules/.bin/ember"
+  ember_app: "test/ember-dummy-app"
