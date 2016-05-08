@@ -1,6 +1,6 @@
 # Peep
 
-**TODO: Add description**
+Help run an Ember CLI application from Elixir/Phoenix
 
 ## Installation
 
@@ -18,3 +18,19 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
           [applications: [:peep]]
         end
 
+## Configuration
+
+Peep can be configured as such, in the `config/config.exs` file for your application.
+
+| Config Option | Description                                         |
+| :--           | :--                                                 |
+| `ember_app`   | Path to root of Ember app, relative to project root |
+| `ember_path`  | Path to Ember executable, relative to `ember_app`   |
+
+The default values are below:
+
+```exs
+config :peep,
+    ember_app: "ui",
+    ember_path: "./node_modules/.bin/ember"
+```
