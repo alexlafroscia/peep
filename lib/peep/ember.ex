@@ -13,18 +13,10 @@ defmodule Peep.Ember do
   Start the Ember server
   """
   def init(path_to_app) do
-    {:ok, ember_app} = app_directory(path_to_app)
+    {:ok, app_path} = app_directory(path_to_app)
 
-    File.cd! ember_app
-
-    path_to_ember = Application.get_env :peep, :ember_path,
-      "./node_modules/.bin/ember"
-    port = Port.open({:spawn_executable, path_to_ember},
-      [:use_stdio, :exit_status, :binary, :hide, :stderr_to_stdout,
-       args: ["serve"]]
-    )
-
-    File.cd! ".."
+    {:ok, args} = ember_args_for :build
+    port = ember_command app_path, args
 
     {:ok, %{port: port}}
   end
@@ -48,5 +40,12 @@ defmodule Peep.Ember do
   def handle_info(message, state) do
     IO.debug message
     {:noreply, state}
+  end
+
+  defp ember_args_for(task) do
+    case task do
+      :build -> {:ok, ["build", "--watch"]}
+      _ -> :error
+    end
   end
 end
