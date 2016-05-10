@@ -18,6 +18,43 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
           [applications: [:peep]]
         end
 
+## Usage
+
+Peep provides two many Plugs that should be used to serve your Ember application; one to handle your "regular" static assets (CSS and JavaScript files) and one to serve the `index.html` file.
+
+### Peep.Plug.Assets
+
+The first of these is used to serve the static assets.  I can be added to your `endpoint.ex` file like so:
+
+```ex
+defmodule MyCoolApp.Endpoint do
+  use Phoenix.Endpoint, otp_app: :mycoolapp
+
+  ...
+
+  plug Peep.Plug.Assets
+
+  ...
+end
+```
+
+The key here is that it is added toward the top of the `endpoint.ex` file, near where the regular `Plug.Static` plug would be found.
+
+### Peep.Plug.Index
+
+This plug is used within the router to catch any `NoRouteError`s thrown, and to instead serve up the Ember application's `index.html`.  This allows any API routes to be matched first, but in the case that none match, have the Ember app be used instead.  **Note:** This means that your Ember application will be responsible for any `404` requests to your application.
+
+The usage of this plug is like so; it should be added to your `web/router.ex` file, just after you `use` the `:router` plug:
+
+```ex
+defmodule MyCoolApp.Router do
+  use MyCoolApp.Web, :router
+  use Peep.Plug.Index
+
+  ...
+end
+```
+
 ## Configuration
 
 Peep can be configured as such, in the `config/config.exs` file for your application.
