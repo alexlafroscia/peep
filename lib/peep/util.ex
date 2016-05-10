@@ -1,13 +1,32 @@
 defmodule Peep.Util do
-  @doc """
-  Get the application directory path for an Ember app
-  """
-  def app_directory(name) when is_atom(name) do
-    {:ok, Path.expand(to_string(name))}
+  require IEx
+
+  defp app_directory(name) when is_atom(name) do
+    app_directory to_string(name)
   end
 
-  def app_directory(name) do
-    {:ok, Path.expand(name)}
+  defp app_directory(name) do
+    project_root = Path.expand(Path.join(Mix.Project.deps_path, ".."))
+    path = Path.join(project_root, name)
+    {:ok, path}
+  end
+
+  @doc """
+  Get the absolute path for the Ember application
+  """
+  @spec ember_app_path :: String.t
+  def ember_app_path do
+    ember_app = Application.get_env :peep, :ember_app, "ui"
+    app_directory ember_app
+  end
+
+  @doc """
+  Get the absolute path for the Ember build directory
+  """
+  def ember_dist_dir do
+    dist_dir = Application.get_env :peep, :ember_dist_dir, "dist"
+    {:ok, path} = ember_app_path
+    Path.join(path, dist_dir)
   end
 
   @doc """

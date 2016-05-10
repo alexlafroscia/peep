@@ -4,16 +4,15 @@ defmodule Peep.Ember do
 
   require Logger
 
-  def start_link(name) do
-    ember_app_path = Application.get_env :peep, :ember_app, "ui"
-    GenServer.start_link(__MODULE__, ember_app_path, name: name)
+  def start_link(_name) do
+    GenServer.start_link(__MODULE__, :ok, name: Peep.Ember)
   end
 
   @doc """
   Start the Ember server
   """
-  def init(path_to_app) do
-    {:ok, app_path} = app_directory(path_to_app)
+  def init(:ok) do
+    {:ok, app_path} = ember_app_path
 
     {:ok, args} = ember_args_for :build
     port = ember_command app_path, args

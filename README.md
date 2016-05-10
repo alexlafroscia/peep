@@ -22,15 +22,17 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 
 Peep can be configured as such, in the `config/config.exs` file for your application.
 
-| Config Option | Description                                         |
-| :--           | :--                                                 |
-| `ember_app`   | Path to root of Ember app, relative to project root |
-| `ember_path`  | Path to Ember executable, relative to `ember_app`   |
+| Config Option    | Description                                               |
+| :--              | :--                                                       |
+| `ember_app`      | Path to root of Ember app, relative to project root       |
+| `ember_path`     | Path to Ember executable, relative to `ember_app`         |
+| `ember_dist_dir` | Name of the subdirectory that the Ember app is built into |
 
 The default values are below:
 
 ```exs
 config :peep,
     ember_app: "ui",
-    ember_path: "./node_modules/.bin/ember"
+    ember_path: "./node_modules/.bin/ember",
+    ember_dist_dir: "dist"
 ```
