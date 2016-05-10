@@ -73,3 +73,16 @@ config :peep,
     ember_path: "./node_modules/.bin/ember",
     ember_dist_dir: "dist"
 ```
+
+## New Project Setup
+
+If you're setting up a new Phoenix/Ember application and want to use Peep, here are my suggestions on how to best do that:
+
+```bash
+$ mix phoenix.new my_cool_app --no-brunch
+$ cd my_cool_app
+$ git init
+$ ember new my_cool_app --skip-git --directory ui
+```
+
+This will create both a Phoenix application, without the default Brunch configuration, and an Ember application inside of it with the same name inside a directory called `ui`.  If you choose to use a directory other than `ui`, you just need to change the configuration for Peep (see the above section).
