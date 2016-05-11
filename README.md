@@ -1,4 +1,4 @@
-# Peep
+# Peep [![Build Status](https://travis-ci.org/alexlafroscia/peep.svg?branch=master)](https://travis-ci.org/alexlafroscia/peep)
 
 Help run an Ember CLI application from Elixir/Phoenix
 
