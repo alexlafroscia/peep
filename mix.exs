@@ -7,6 +7,8 @@ defmodule Peep.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     aliases: [
+       test: "test --no-start"],
      deps: deps]
   end
 

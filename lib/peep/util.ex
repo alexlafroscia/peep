@@ -1,11 +1,11 @@
 defmodule Peep.Util do
   require IEx
 
-  defp app_directory(name) when is_atom(name) do
+  def app_directory(name) when is_atom(name) do
     app_directory to_string(name)
   end
 
-  defp app_directory(name) do
+  def app_directory(name) do
     project_root = Path.expand(Path.join(Mix.Project.deps_path, ".."))
     path = Path.join(project_root, name)
     {:ok, path}
@@ -33,10 +33,10 @@ defmodule Peep.Util do
   Run an Ember command.
   """
   @spec ember_command(String.t, list) :: port
-  def ember_command(path, args) do
+  def ember_command(app_path, args) do
     # Navigate into Ember appliation directory
     cwd = System.cwd!
-    File.cd! path
+    File.cd! app_path
 
     path_to_ember = Application.get_env :peep, :ember_path,
       "./node_modules/.bin/ember"

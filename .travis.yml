@@ -1,19 +1,29 @@
+sudo: false
+
 language: elixir
 elixir:
   - 1.2.5
-node_js:
-  - "5.1"
 otp_release:
   - 18.2.1
-sudo: false
+
+env:
+  - TRAVIS_NODE_VERSION="5.1"
+
 cache:
   directories:
+    - _build
     - deps
     - test/ember-dummy-app/bower_components
     - test/ember-dummy-app/node_modules
 
 before_install:
+  # Install Node.js version
+  - nvm install $TRAVIS_NODE_VERSION
+
+  # Install Hex
   - mix local.hex --force
+
+  # Install Bower
   - npm install -g bower
 install:
   - mix deps.get --only test
